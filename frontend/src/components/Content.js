@@ -11,13 +11,14 @@ import Instructions from './Instructions';
           refactor to get this Content component to work.
 */
 class Content extends Component {
+
   renderContent = () => {
-    if (false) {
-      return <NoteEditor />;
-    } else if (false) {
-      return <NoteViewer />;
-    } else {
-      return <Instructions />;
+    if (this.props.show === 'edit') {
+      return <NoteEditor changeView={this.props.changeView} selected_note={this.props.selected_note}/>
+    } else if (this.props.show === 'view') {
+      return <NoteViewer changeView={this.props.changeView} selected_note={this.props.selected_note}/>
+    } else if (this.props.show === 'instructions'){
+      return <Instructions />
     }
   }
 

@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 const NoteItem = (props) => (
-  <li>
-    <h2>Title</h2>
-    <p>Caption...</p>
+  <li onClick={() => props.selectNote(props.note)}>  
+    <h2>{props.note.title}</h2>
+    <p className='note-body'>{props.note.body}</p>
   </li>
-);
+)
 
-export default NoteItem;
+export default NoteItem
