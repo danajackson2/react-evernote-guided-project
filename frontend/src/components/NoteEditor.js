@@ -7,31 +7,14 @@ class NoteEditor extends Component {
     id: this.props.selected_note.id
   }
 
-  editNote = (e) => {
-    e.preventDefault()
-    fetch(`http://localhost:3000/api/v1/notes/${this.state.id}`,{
-      method: 'PATCH',  
-      headers: {
-        'content-type':'application/json',
-        'Accept': 'application/json'},
-      body: JSON.stringify({
-        title: this.state.title,
-        body: this.state.body,
-        user_id: 1})
-    })
-    .then(res => res.json())
-    .then(console.log)
-    this.props.changeView('view')
-  }
-
   render() {
     return (
-      <form onSubmit={e => this.editNote(e)} className="note-editor">
+      <form onSubmit={e => this.props.editNote(e, this.state)} className="note-editor">
         <input onChange={(e) => this.setState({...this.state, title: e.target.value})} type="text" name="title" defaultValue={this.props.selected_note.title}/>
         <textarea onChange={(e) => this.setState({...this.state, body: e.target.value})} name="body" defaultValue={this.props.selected_note.body}/>
         <div className="button-row">
           <input className="button" type="submit" value="Save" />
-          <button type="button">Cancel</button>
+          <button onClick={() => this.props.changeView('view')} type="button">Cancel</button>
         </div>
       </form>
     );

@@ -14,7 +14,7 @@ class Content extends Component {
 
   renderContent = () => {
     if (this.props.show === 'edit') {
-      return <NoteEditor changeView={this.props.changeView} selected_note={this.props.selected_note}/>
+      return <NoteEditor editNote={this.props.editNote} updateSideBar={this.props.updateSideBar} selectNote={this.props.selectNote} changeView={this.props.changeView} selected_note={this.props.selected_note}/>
     } else if (this.props.show === 'view') {
       return <NoteViewer changeView={this.props.changeView} selected_note={this.props.selected_note}/>
     } else if (this.props.show === 'instructions'){

@@ -4,7 +4,7 @@ import NoteItem from './NoteItem';
 const NoteList = (props) => {
   return (
     <ul>
-      {props.notes.map(note => <NoteItem changeToShow={props.changeToShow} selectNote={props.selectNote} note={note}/>)}
+      {props.notes.length > 0 && props.notes.map(note => <NoteItem key={note.id} changeToShow={props.changeToShow} selectNote={props.selectNote} note={note}/>)}
     </ul>
   );
 }
