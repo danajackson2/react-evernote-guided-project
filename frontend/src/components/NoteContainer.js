@@ -63,6 +63,18 @@ class NoteContainer extends Component {
     this.changeView('view')
   }
 
+  deleteNote = noteId => {
+    fetch(`http://localhost:3000/api/v1/notes/${noteId}`,{
+      method:'DELETE'
+    })
+    .then(res => res.json())
+    .then(msg => {
+      console.log(msg)
+      this.loadNotes()
+      this.setState({selected_note: null, show: 'instructions'})
+    })
+  }
+
   selectNote = (note) => {
     this.setState({selected_note: note, show: 'view'})
   }
@@ -87,7 +99,7 @@ class NoteContainer extends Component {
         <Search setFilter={this.setFilter} />
         <div className='container'>
           <Sidebar newNote={this.newNote} selectNote={this.selectNote} notes={this.notesList()}/>
-          <Content editNote={this.editNote} selectNote={this.selectNote} changeView={this.changeView} show={this.state.show} selected_note={this.state.selected_note}/>
+          <Content deleteNote={this.deleteNote} editNote={this.editNote} selectNote={this.selectNote} changeView={this.changeView} show={this.state.show} selected_note={this.state.selected_note}/>
         </div>
       </Fragment>
     );

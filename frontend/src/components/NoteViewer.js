@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react';
 
 const NoteViewer = (props) => {
+  const {title, body, id} = props.selected_note
+
   return (
     <Fragment>
-      <h2>{props.selected_note.title}</h2>
-      <p>{props.selected_note.body}</p>
+      <h2>{title}</h2>
+      <p>{body}</p>
       <button onClick={() => props.changeView('edit')} >Edit</button>
+      <button onClick={() => props.deleteNote(id)} >Delete</button>
     </Fragment>
   )
 }
