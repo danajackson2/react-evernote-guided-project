@@ -10,7 +10,8 @@ class NoteContainer extends Component {
     show: 'instructions',
     user_id: 1,
     notes: [],
-    filter_term: ''
+    filter_term: '',
+    searchParam: 'title'
   }
 
   componentDidMount(){
@@ -84,19 +85,30 @@ class NoteContainer extends Component {
   }
 
   setFilter = input => {
-    this.setState({filter_term: `${input}`})
+    this.setState({filter_term: `${input.toLowerCase()}`})
   }
 
   notesList = () => {
-    return this.state.filter_term === '' 
-    ? this.state.notes 
-    : this.state.notes.filter(note => note.title.includes(this.state.filter_term))
+    switch(this.state.searchParam){
+      case '' :
+        return this.state.notes 
+      case 'title' :
+      case 'body' :
+        return this.state.notes.filter(note => note[this.state.searchParam].toLowerCase().includes(this.state.filter_term))
+      case 'date created' :
+      case 'date edited' :
+        console.log('dates')
+    }
+  }
+
+  setSearchParam = (param) => {
+    this.setState({searchParam: param})
   }
 
   render() {
     return (
       <Fragment>
-        <Search setFilter={this.setFilter} />
+        <Search setSearchParam={this.setSearchParam} searchParam={this.state.searchParam} setFilter={this.setFilter} />
         <div className='container'>
           <Sidebar newNote={this.newNote} selectNote={this.selectNote} notes={this.notesList()}/>
           <Content deleteNote={this.deleteNote} editNote={this.editNote} selectNote={this.selectNote} changeView={this.changeView} show={this.state.show} selected_note={this.state.selected_note}/>
