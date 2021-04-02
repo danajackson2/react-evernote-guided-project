@@ -7,13 +7,13 @@ const Search = (props) => {
   const searchOption = () => {
     switch (props.searchParam){
       case 'title':
-        return (<input id="search-bar" type="text" placeholder="Search Notes by Title" onChange={e => props.setFilter(e.target.value)}/>)
+        return (<input id="search-bar" type="text" placeholder="Title" onChange={e => props.setFilter(e.target.value)}/>)
       case 'body' :
-        return (<input id="search-bar" type="text" placeholder="Search Notes by Body" onChange={e => props.setFilter(e.target.value)}/>)
-      case 'date created' :
-        return (<input id="search-bar" type="text" placeholder="(MM-DD-YYYY) Date Created" onChange={e => props.setFilter(e.target.value)}/>)
-      case 'date edited' :
-        return (<input id="search-bar" type="text" placeholder="(MM-DD-YYYY) Date Edited" onChange={e => props.setFilter(e.target.value)}/>)
+        return (<input id="search-bar" type="text" placeholder="Body" onChange={e => props.setFilter(e.target.value)}/>)
+      case 'created_at' :
+        return (<input id="search-bar" type="text" placeholder="Date Created (MM-DD-YYYY)" onChange={e => props.setFilter(e.target.value)}/>)
+      case 'updated_at' :
+        return (<input id="search-bar" type="text" placeholder="Date Edited (MM-DD-YYYY)" onChange={e => props.setFilter(e.target.value)}/>)
       default:
         console.log('something wrong in searchOptions switch')
     }
@@ -24,7 +24,13 @@ const Search = (props) => {
   }
 
   const handleItemClick = (param) => {
-    props.setSearchParam(param.toLowerCase())
+    if (param === 'Title' || param === 'Body'){
+      props.setSearchParam(param.toLowerCase())
+    } else if (param === 'Date Created') {
+      props.setSearchParam('created_at')
+    } else if (param === 'Date Edited'){
+      props.setSearchParam('updated_at')
+    }
     setMenuShow(false)
   }
 

@@ -85,7 +85,11 @@ class NoteContainer extends Component {
   }
 
   setFilter = input => {
-    this.setState({filter_term: `${input.toLowerCase()}`})
+    if (input === 'title' || input === 'body'){
+      this.setState({filter_term: `${input.toLowerCase()}`})
+    } else {
+      this.setState({filter_term: input})
+    }
   }
 
   notesList = () => {
@@ -95,10 +99,17 @@ class NoteContainer extends Component {
       case 'title' :
       case 'body' :
         return this.state.notes.filter(note => note[this.state.searchParam].toLowerCase().includes(this.state.filter_term))
-      case 'date created' :
-      case 'date edited' :
-        console.log('dates')
+      case 'created_at' :
+      case 'updated_at' :
+        return this.state.notes.filter(note => this.timeConv(note[this.state.searchParam]) === this.state.filter_term)
+      default :
+        return this.state.notes
     }
+  }
+
+  timeConv = (timeStamp) => {
+    let a = timeStamp.split('-')
+    return `${a[1]}-${a[2].slice(0, 2)}-${a[0]}`
   }
 
   setSearchParam = (param) => {
